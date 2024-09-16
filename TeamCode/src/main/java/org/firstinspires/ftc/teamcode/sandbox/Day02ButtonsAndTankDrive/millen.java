@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.sandbox.Day02ButtonsAndTankDrive;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class millen extends OpMode {
 
@@ -13,9 +14,13 @@ public class millen extends OpMode {
     @Override
     public void init() {
         fl = hardwareMap.get(DcMotor.class, "frontLeft");
+        fl.setDirection(DcMotorSimple.Direction.FORWARD);
         fr = hardwareMap.get(DcMotor.class, "frontRight");
+        fr.setDirection(DcMotorSimple.Direction.FORWARD);
         rl = hardwareMap.get(DcMotor.class, "rearLeft");
+        rl.setDirection(DcMotorSimple.Direction.REVERSE);
         rr = hardwareMap.get(DcMotor.class, "rearRight");
+        rr.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     @Override
