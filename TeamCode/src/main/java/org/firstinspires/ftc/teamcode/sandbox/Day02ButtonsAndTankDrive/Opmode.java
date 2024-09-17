@@ -14,7 +14,7 @@ DcMotor rearRight;
     public void init() {
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-        rearLeft = hardwareMap.get(DcMotor.class, "rearleft");
+        rearLeft = hardwareMap.get(DcMotor.class, "rearLeft");
         rearRight = hardwareMap.get(DcMotor.class, "rearRight");
     }
 
@@ -24,7 +24,7 @@ DcMotor rearRight;
 
             frontLeft.setPower(gamepad1.left_stick_y);
             frontRight.setPower(gamepad1.right_stick_y);
-            rearLeft.setPower(gamepad1.right_stick_y;
+            rearLeft.setPower(gamepad1.right_stick_y);
             rearRight.setPower(gamepad1.right_stick_y);
 
 
