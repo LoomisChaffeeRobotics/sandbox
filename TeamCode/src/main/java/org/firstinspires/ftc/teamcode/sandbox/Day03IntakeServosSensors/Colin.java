@@ -28,7 +28,6 @@ public class Colin extends OpMode {
                 greenMostMotor.setPower(1);
             } else {blueMostMotor.setPower(1);
             }
-
             }
 
         }
