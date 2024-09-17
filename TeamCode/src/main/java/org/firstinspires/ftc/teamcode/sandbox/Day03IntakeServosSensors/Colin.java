@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.sandbox.Day03IntakeServosSensors;
 
-import android.hardware.Sensor;
+
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
