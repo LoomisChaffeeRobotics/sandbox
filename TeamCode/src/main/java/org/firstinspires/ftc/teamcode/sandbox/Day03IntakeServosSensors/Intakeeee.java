@@ -4,11 +4,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 @TeleOp
 public class Intakeeee extends OpMode {
     DcMotor intake;
-    public void init() {
+    ColorSensor colorSensor;
 
+    public void init() {
+        colorSensor = hardwareMap.get(ColorSensor.class, "colorSensor");
         intake = hardwareMap.get(DcMotor.class, "intake");
     }
     @Override
@@ -23,7 +26,13 @@ public class Intakeeee extends OpMode {
         else{
             intake.setPower(0);
         }
+        if (colorSensor.red() > colorSensor.blue() && colorSensor.red() > colorSensor.green()) {
+            intake.setPower(1.0);
+        }
+        else {
+            intake.setPower(0);
 
+        }
     }
 
 }
