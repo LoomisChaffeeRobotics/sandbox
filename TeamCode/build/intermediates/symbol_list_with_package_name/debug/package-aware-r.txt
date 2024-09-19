@@ -30,6 +30,7 @@ array app_theme_tokens
 array choice_array_legacy_module
 array lynx_module_options_array
 array networkTypes
+array servo_hub_options_array
 array wifi_direct_channels
 attr actionBarDivider
 attr actionBarItemBackground
@@ -758,6 +759,7 @@ drawable ic_launcher
 drawable ic_warning
 drawable icon_menu
 drawable icon_robotcontroller
+drawable intothedeep_background
 drawable notification_action_background
 drawable notification_bg
 drawable notification_bg_low
@@ -921,6 +923,8 @@ id edit_query
 id empty_filelist
 id end
 id entire_screen
+id ethernetDeviceIpAddress
+id ethernetDeviceName
 id expand_activities_button
 id expanded_menu
 id explanationText
@@ -970,6 +974,7 @@ id infoButton
 id info_btn
 id inspectionRootLayout
 id invalidQr
+id ipAddressExplanationLabel
 id isDSInstalled
 id isDefaultPassword
 id isDefaultPassword_img
@@ -1225,6 +1230,7 @@ layout digital_device
 layout digital_device_lynx
 layout digital_devices
 layout empty
+layout ethernet_device
 layout feedback
 layout file_info
 layout fragment_wifi_mute
@@ -1359,6 +1365,7 @@ string active_connections_label
 string adafruit_imu_description
 string adafruit_imu_name
 string airplaneModeLabel
+string airplaneModeOnContext
 string alertLynxFirmwareUpdateFailed
 string alertLynxFirmwareUpdateFailedTitle
 string alertLynxFirmwareUpdateFailedWithReason
@@ -1367,9 +1374,11 @@ string alertMessageNoActionGetContent
 string alertTitleRobotControllerConsole
 string androidVersionLabel
 string anotherDsIsConnectedError
+string appDsIsObsoleteContext
 string appNameDriverStation
 string appNameRobotController
 string appNameUnknown
+string appRcIsObsoleteContext
 string appThemeChangeRestartNotifyDS
 string appThemeChangeRestartNotifyRC
 string app_name
@@ -1407,6 +1416,7 @@ string batteryLevelLabel
 string blocks_activity
 string blocks_menu_item
 string bluetoothLabel
+string bluetoothOnContext
 string buttonExitWithoutSaving
 string buttonNameAdd
 string buttonNameApply
@@ -1494,6 +1504,7 @@ string controlHubDisplayName
 string controlHubFirmwareUpdateMessage
 string controlHubImuFwFlashFailed
 string controlHubNotAbleToCommunicateWithInternalHub
+string controlHubOsContext
 string controlHubOsVersionLabel
 string control_hub_module_name
 string control_hub_usb_device_name
@@ -1502,13 +1513,16 @@ string counted_camera_name
 string counted_imu_name
 string counted_lynx_module_name
 string counted_lynx_usb_device_name
+string counted_servo_hub_name
 string currentApLabel
 string defaultOpModeName
+string defaultPasswordContext
 string default_port
 string define_zxingandroidembedded
 string descriptionLynxEmbeddedModule
 string deviceDisplayNameUnknownUSBDevice
 string deviceInterfaceModuleName
+string deviceNameContext
 string device_info
 string device_name_format_ds
 string device_name_format_rc
@@ -1519,7 +1533,10 @@ string dialogEnableModifyingSettingsMessage
 string dialogEnableModifyingSettingsTitle
 string dialogMessagePleaseWait
 string display_server_log_button
+string driverHubOsContext
 string driverHubOsVersionLabel
+string driverStationInstalledOnRobotControllerContext
+string driverStationIsObsoleteContext
 string driverStationLabel
 string dsVersionMismatch
 string duplicateWebcam
@@ -1529,6 +1546,7 @@ string edit_analog_input_devices_activity_lynx
 string edit_controller
 string edit_digital_devices_activity
 string edit_digital_devices_activity_lynx
+string edit_ethernet_devices_activity
 string edit_i2c_devices_activity
 string edit_lynx_module_controller_activity
 string edit_lynx_usb_device_activity
@@ -1553,6 +1571,7 @@ string file_edit_button
 string file_prompt
 string filename_editText
 string filler_text
+string firmwareContext
 string fixFailDuplicate
 string fixFailNoneAvailable
 string flashingControlHubImu
@@ -1572,6 +1591,7 @@ string input_name_hint
 string input_name_label
 string inspection_activity
 string inspection_mode_menu_item
+string ip_address_prompt_text
 string launch_wifi_settings
 string led_description
 string library_zxingandroidembedded_author
@@ -1584,6 +1604,7 @@ string library_zxingandroidembedded_libraryWebsite
 string library_zxingandroidembedded_licenseId
 string library_zxingandroidembedded_repositoryLink
 string load_menu_item
+string locationEnabledContext
 string locationLabel
 string locationServices
 string log_label
@@ -1666,6 +1687,7 @@ string network_name_label
 string network_not_ok
 string network_type_wifi_direct
 string network_type_wireless_ap
+string noContext
 string noCurrentConfigFile
 string noDeviceAttached
 string noDevicesFoundMessage
@@ -1681,6 +1703,7 @@ string notAllDevicesFoundMessage
 string notAllDevicesFoundTitle
 string not_available
 string optical_distance_sensor_description
+string osContext
 string ota_result_type_device_not_supported
 string ota_result_type_downgrade_not_authorized
 string ota_result_type_error_reading_file
@@ -1837,6 +1860,8 @@ string restart_robot_menu_item
 string restore_settings
 string rev_20_hd_hex_name
 string rev_40_hd_hex_name
+string rev_9_axis_imu_description
+string rev_9_axis_imu_name
 string rev_blinkin_description
 string rev_blinkin_name
 string rev_color_sensor_v3_description
@@ -1850,6 +1875,9 @@ string rev_spark_mini_name
 string rev_touch_sensor_description
 string rev_ultraplanetary_hd_hex_name
 string robotControllerAppUpdateReadme
+string robotControllerInstalledOnDriverStationContext
+string robotControllerIsNotInstalledContext
+string robotControllerIsObsoleteContext
 string robotControllerLabel
 string robotOffTip
 string robotStateEmergencyStop
@@ -1881,6 +1909,7 @@ string saveChangesMessage
 string saveChangesMessageScreen
 string saveChangesTitle
 string save_configuration
+string sdkVersionMismatchContext
 string search_menu_title
 string serialNumberNotAttached
 string server_not_ok
@@ -1894,6 +1923,10 @@ string setWifiChannelFailure
 string setWifiChannelSuccess
 string settings_activity
 string settings_menu_item
+string sparkfun_led_stick_description
+string sparkfun_led_stick_name
+string sparkfun_optical_odometry_description
+string sparkfun_optical_odometry_name
 string standard_servo_description
 string status_bar_notification_info_overflow
 string stringManufacturer
@@ -2015,6 +2048,7 @@ string webcam_name_prompt
 string wifiAccessPointLabel
 string wifiApDescription
 string wifiConnectedLabel
+string wifiEnabledContext
 string wifiEnabledLabel
 string wifiNameLabel
 string wirelessApStatusLabel
