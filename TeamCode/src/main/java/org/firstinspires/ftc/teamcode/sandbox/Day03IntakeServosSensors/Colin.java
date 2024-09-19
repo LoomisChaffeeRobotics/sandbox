@@ -33,11 +33,8 @@ public class Colin extends OpMode {
 
 }
     public void loop() {
-    clawArm1.getPosition();
-    if (clawArm1.getPosition() < 1) {
-        clawArm1.setPosition(1);
-        //claw arm moving?
-    }
+
+
 //color sensor code
             colorSensor.getNormalizedColors();
             if (colorSensor.red() > colorSensor.blue() && colorSensor.red() > colorSensor.green()) {
