@@ -61,6 +61,9 @@
         <item>"Wi-Fi Direct"</item>
         <item>"Control Hub"</item>
     </string-array>
+    <string-array name="servo_hub_options_array">
+    <item>Servos|EDIT_SERVO_LIST</item>
+  </string-array>
     <string-array name="wifi_direct_channels">
         <item>Auto – device selects channel|0</item>
         
@@ -527,6 +530,7 @@
     <string name="adafruit_imu_description">an Adafruit IMU</string>
     <string name="adafruit_imu_name">Adafruit IMU</string>
     <string name="airplaneModeLabel">Airplane Mode:</string>
+    <string name="airplaneModeOnContext">Airplane mode must be turned on.</string>
     <string name="alertLynxFirmwareUpdateFailed">Firmware update of %s failed. Please try again.</string>
     <string name="alertLynxFirmwareUpdateFailedTitle">Firmware Update Failed</string>
     <string name="alertLynxFirmwareUpdateFailedWithReason">Firmware update of %1$s failed because %2$s. Please try again.</string>
@@ -535,9 +539,11 @@
     <string name="alertTitleRobotControllerConsole">Robot Controller Console</string>
     <string name="androidVersionLabel">Android Version:</string>
     <string name="anotherDsIsConnectedError">Another Driver Station is already connected to the Robot Controller.</string>
+    <string name="appDsIsObsoleteContext">The Driver Station app is obsolete.</string>
     <string name="appNameDriverStation">Driver Station</string>
     <string name="appNameRobotController">Robot Controller</string>
     <string name="appNameUnknown">Unknown Application</string>
+    <string name="appRcIsObsoleteContext">The Robot Controller app is obsolete.</string>
     <string name="appThemeChangeRestartNotifyDS">App color scheme has changed. The driver station will restart.</string>
     <string name="appThemeChangeRestartNotifyRC">App color scheme has changed. The robot controller will restart.</string>
     <string name="app_name">FTC Robot Controller</string>
@@ -578,6 +584,7 @@
     <string name="blocks_activity">Blocks</string>
     <string name="blocks_menu_item">Blocks</string>
     <string name="bluetoothLabel">Bluetooth:</string>
+    <string name="bluetoothOnContext">Bluetooth should be turned off.</string>
     <string name="buttonExitWithoutSaving">Exit Without Saving</string>
     <string name="buttonNameAdd">Add</string>
     <string name="buttonNameApply">Apply</string>
@@ -665,6 +672,7 @@
     <string name="controlHubFirmwareUpdateMessage">Updating Control Hub firmware with \"%1$s\". Please do not remove power.</string>
     <string name="controlHubImuFwFlashFailed">Failed to flash the Control Hub IMU\'s firmware.</string>
     <string name="controlHubNotAbleToCommunicateWithInternalHub">The Control Hub is not able to communicate with its internal Expansion Hub</string>
+    <string name="controlHubOsContext">The Control Hub operating system is less than the minimum, %1$s, legal version.</string>
     <string name="controlHubOsVersionLabel">Control Hub OS Version:</string>
     <string name="control_hub_module_name">Control Hub</string>
     <string name="control_hub_usb_device_name">Control Hub Portal</string>
@@ -673,13 +681,16 @@
     <string name="counted_imu_name">imu %d</string>
     <string name="counted_lynx_module_name">Expansion Hub %d</string>
     <string name="counted_lynx_usb_device_name">Expansion Hub Portal %d</string>
+    <string name="counted_servo_hub_name">Servo Hub %d</string>
     <string name="currentApLabel">Current Robot Controller: </string>
     <string name="defaultOpModeName">Stop Robot</string>
+    <string name="defaultPasswordContext">The Control Hub is using its factory default password. This is extremely insecure and could result in a malicious actor deleting all Blocks and OBJ opmodes.</string>
     <string name="default_port">0</string>
     <string name="define_zxingandroidembedded" translatable="false"/>
     <string name="descriptionLynxEmbeddedModule">Embedded Expansion Hub</string>
     <string name="deviceDisplayNameUnknownUSBDevice">unknown USB device [%s]</string>
     <string name="deviceInterfaceModuleName">Device Interface Module</string>
+    <string name="deviceNameContext">The device is not named properly.  Refer to the Game Manual for the proper name format.</string>
     <string name="device_info">Device Info</string>
     <string name="device_name_format_ds">0000-%s-DS</string>
     <string name="device_name_format_rc">0000-%s-RC</string>
@@ -695,7 +706,10 @@
     <string name="dialogEnableModifyingSettingsTitle">Enable modifying system settings</string>
     <string name="dialogMessagePleaseWait">Please wait...</string>
     <string name="display_server_log_button">Display Server Log</string>
+    <string name="driverHubOsContext">The Driver Hub operating system is less than the minimum, %1$s, legal version.</string>
     <string name="driverHubOsVersionLabel">Driver Hub OS Version:</string>
+    <string name="driverStationInstalledOnRobotControllerContext">The Driver Station app is installed on the Robot Controller.</string>
+    <string name="driverStationIsObsoleteContext">The Driver Station app is obsolete.  Ensure your device has the correct date.  If the date is correct, install the latest Driver Station for the current season.</string>
     <string name="driverStationLabel">Driver Station:</string>
     <string name="dsVersionMismatch">No, the DS version is %1$d.%2$d</string>
     <string name="duplicateWebcam">Multiple webcams found with serial number %1$s.</string>
@@ -705,6 +719,7 @@
     <string name="edit_controller">Edit Controller</string>
     <string name="edit_digital_devices_activity">Edit Digital Devices</string>
     <string name="edit_digital_devices_activity_lynx">Edit Digital Devices (Expansion Hub)</string>
+    <string name="edit_ethernet_devices_activity">Edit Ethernet Devices</string>
     <string name="edit_i2c_devices_activity">Edit I2c Devices</string>
     <string name="edit_lynx_module_controller_activity">Edit Expansion Hub</string>
     <string name="edit_lynx_usb_device_activity">Edit Expansion Hub Portal</string>
@@ -729,6 +744,7 @@
     <string name="file_prompt">Choose Configuration File</string>
     <string name="filename_editText">Filename</string>
     <string name="filler_text">lorem ipsum</string>
+    <string name="firmwareContext">The firmware version of the Control Hub and/or Expansion Hub is less than the minimum version, %1$s, specified in the Game Manual.</string>
     <string name="fixFailDuplicate">Unable to fix \"%1$s\": no unique replacement %2$s attached</string>
     <string name="fixFailNoneAvailable">Unable to fix \"%1$s\": no replacement %2$s attached</string>
     <string name="flashingControlHubImu">Flashing Control Hub IMU firmware</string>
@@ -748,6 +764,7 @@
     <string name="input_name_label">Device name</string>
     <string name="inspection_activity">Inspection Mode</string>
     <string name="inspection_mode_menu_item">Self Inspect</string>
+    <string name="ip_address_prompt_text">Enter the ip address of the target device</string>
     <string name="launch_wifi_settings">Wi-Fi Settings...</string>
     <string name="led_description">an LED</string>
     <string name="library_zxingandroidembedded_author" translatable="false">JourneyApps</string>
@@ -760,6 +777,7 @@
     <string name="library_zxingandroidembedded_licenseId" translatable="false">apache_2_0</string>
     <string name="library_zxingandroidembedded_repositoryLink" translatable="false">https://github.com/journeyapps/zxing-android-embedded</string>
     <string name="load_menu_item">Load Configuration File</string>
+    <string name="locationEnabledContext">Turn on location services in settings.</string>
     <string name="locationLabel">Location services:</string>
     <string name="locationServices">The Driver Station has detected that it can not find any Wi-Fi Direct peers and Location Services is
     turned off at a System Level.  Google\'s Android operating system, Oreo and above, requires Locations Services to be on in order to scan
@@ -787,7 +805,7 @@
     <string name="lynx_address_format_module_address">Expansion Hub w/ address %d</string>
     <string name="lynx_address_format_new_module_address">New address: %d</string>
     <string name="lynx_address_format_no_change">&lt;No change></string>
-    <string name="lynx_address_instructions_static">Each Expansion Hub must have an address which is unique among all Expansion Hubs connected to the same portal (USB connection or Control Hub). This screen allows these addresses to be changed.\n\nYour configuration file will no longer work if the new hub addresses no longer match it.\n\nIf multiple hubs connected to a portal have the same address, only one or neither of them will show up.</string>
+    <string name="lynx_address_instructions_static">Each Expansion Hub and Servo Hub must have an address which is unique among all Expansion Hubs and Servo Hubs connected to the same portal (USB connection or Control Hub).\n\nThis screen allows Expansion Hub addresses to be changed. Changing the address of a Servo Hub can only be done through the REV Hardware Client at this time.\n\nYour configuration file will no longer work if the new hub addresses no longer match it.\n\nIf multiple hubs connected to a portal have the same address, only one or neither of them will show up.</string>
     <string name="lynx_address_no_devices">No Expansion Hubs are connected. Please connect one or more Expansion Hubs and try again.</string>
     <string name="lynx_embedded_bhi260ap_imu_name">REV internal IMU (BHI260AP)</string>
     <string name="lynx_embedded_bno055_imu_name">REV internal IMU (BNO055)</string>
@@ -802,7 +820,7 @@
     <string name="lynx_fw_instructions_no_devices">No Expansion Hubs are connected. Please connect one or more Expansion Hubs via USB, and try again.</string>
     <string name="lynx_fw_instructions_serial">Serial number: %s</string>
     <string name="lynx_fw_instructions_update">REV Hubs that will be updated:</string>
-    <string name="lynx_fw_instructions_update_post">Note that Expansion Hubs are only available for firmware update if they are plugged in directly via USB (not RS485).\n\nWARNING: While the firmware update is in progress, do not unplug hubs or restart the robot, or a hub may need to be updated again before it can be used.</string>
+    <string name="lynx_fw_instructions_update_post">Note that Expansion Hubs are only available for firmware update if they are plugged in directly via USB (not RS485). Updating a Servo Hub is only supported via the REV Hardware Client.\n\nWARNING: While the firmware update is in progress, do not unplug hubs or restart the robot, or a hub may need to be updated again before it can be used.</string>
     <string name="manage_page_no_network">Unavailable. Is Wi-Fi on?</string>
     <string name="manual_control_op_mode_display_name">Manual Control</string>
     <string name="matchesDSVersionLabel">Matches DS version:</string>
@@ -844,6 +862,7 @@
     <string name="network_not_ok">Network not OK.</string>
     <string name="network_type_wifi_direct">WifiDirect</string>
     <string name="network_type_wireless_ap">WirelessAP</string>
+    <string name="noContext">No context available for this inspection item.</string>
     <string name="noCurrentConfigFile">&lt;No Config Set></string>
     <string name="noDeviceAttached">NO DEVICE ATTACHED</string>
     <string name="noDevicesFoundMessage">In order to find devices: \n    1. Attach a robot \n    2. Press the \'Scan\' button</string>
@@ -859,6 +878,7 @@
     <string name="notAllDevicesFoundTitle">Some Devices Not Found</string>
     <string name="not_available">&lt;NOT AVAILABLE></string>
     <string name="optical_distance_sensor_description">a Modern Robotics optical distance sensor</string>
+    <string name="osContext">The Android OS version running on this device is lower than the minimum version, %1$s, specified in the Game Manual.</string>
     <string name="ota_result_type_device_not_supported">This update file does not support this device.</string>
     <string name="ota_result_type_downgrade_not_authorized">This update file is older than the currently running operating system.\nAre you sure you want to install it?</string>
     <string name="ota_result_type_error_reading_file">Error reading the uploaded update file. Please try again.</string>
@@ -1033,6 +1053,8 @@
     <string name="restore_settings">Restore Saved Wi-Fi Settings</string>
     <string name="rev_20_hd_hex_name">REV Robotics 20:1 HD Hex Motor</string>
     <string name="rev_40_hd_hex_name">REV Robotics 40:1 HD Hex Motor</string>
+    <string name="rev_9_axis_imu_description">a REV 9-Axis IMU</string>
+    <string name="rev_9_axis_imu_name">REV 9-Axis IMU</string>
     <string name="rev_blinkin_description">a REV Blinkin LED Driver</string>
     <string name="rev_blinkin_name">REV Blinkin LED Driver</string>
     <string name="rev_color_sensor_v3_description">a REV Color Sensor V3</string>
@@ -1046,6 +1068,9 @@
     <string name="rev_touch_sensor_description">a REV touch sensor</string>
     <string name="rev_ultraplanetary_hd_hex_name">REV Robotics UltraPlanetary HD Hex Motor</string>
     <string name="robotControllerAppUpdateReadme">When running on a REV Control Hub (and only on a Control Hub, not merely a robot controller phone), any Android applications (APK files) found in this folder will be automatically installed when the system boots. Once successfully installed, each APK is deleted so as to not be reinstalled on subsequent boots.</string>
+    <string name="robotControllerInstalledOnDriverStationContext">The Robot Controller app is installed on the Driver Station.</string>
+    <string name="robotControllerIsNotInstalledContext">The Robot Controller app is not installed on the Control Hub.</string>
+    <string name="robotControllerIsObsoleteContext">The Robot Controller app is obsolete.  Ensure your device has the correct date.  If the date is correct, install the latest Robot Controller for the current season.</string>
     <string name="robotControllerLabel">Robot Controller:</string>
     <string name="robotOffTip">Make sure that your robot is turned on.</string>
     <string name="robotStateEmergencyStop">EMERGENCY STOP</string>
@@ -1077,6 +1102,7 @@
     <string name="saveChangesMessageScreen">Save your changes before exiting this screen? If you click \'Exit Without Saving\' your changes will be lost.</string>
     <string name="saveChangesTitle">Save Changes?</string>
     <string name="save_configuration">Save Configuration</string>
+    <string name="sdkVersionMismatchContext">The Robot Controller SDK %1$s and the Driver Station %2$s do not match. Reinstall clean, latest versions of both.</string>
     <string name="search_menu_title">Search</string>
     <string name="serialNumberNotAttached">" (not attached)"</string>
     <string name="server_not_ok">Server not OK.</string>
@@ -1090,6 +1116,10 @@
     <string name="setWifiChannelSuccess">Changed Wi-Fi Direct channel to \'%s\'</string>
     <string name="settings_activity">Settings</string>
     <string name="settings_menu_item">Settings</string>
+    <string name="sparkfun_led_stick_description" ns2:ignore="ExtraTranslation">a SparkFun QWIIC LED Stick</string>
+    <string name="sparkfun_led_stick_name" ns2:ignore="ExtraTranslation">SparkFun QWIIC LED Stick</string>
+    <string name="sparkfun_optical_odometry_description" ns2:ignore="ExtraTranslation">a SparkFun optical odometry sensor</string>
+    <string name="sparkfun_optical_odometry_name" ns2:ignore="ExtraTranslation">SparkFun Optical Odometry Sensor</string>
     <string name="standard_servo_description">a servo</string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="stringManufacturer">Manufacturer:</string>
@@ -1214,6 +1244,7 @@
         own Wi-Fi network named with the name of the robot controller (default password: \"password\"). Click the button below to use the system Wi-Fi Settings of
         your driver station to select the network of the robot controller you want to pair with.</string>
     <string name="wifiConnectedLabel">Standard Wi-Fi Connected:</string>
+    <string name="wifiEnabledContext">Wifi must be enabled in order for the Robot Controller and Driver Station to communicate.</string>
     <string name="wifiEnabledLabel">Wi-Fi Enabled:</string>
     <string name="wifiNameLabel">Wi-Fi Direct Name:</string>
     <string name="wirelessApStatusLabel">Status: </string>

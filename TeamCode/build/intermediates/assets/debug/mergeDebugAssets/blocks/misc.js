@@ -167,6 +167,71 @@ Blockly.FtcJava['misc_atan2'] = function(block) {
   return [code, Blockly.FtcJava.ORDER_MULTIPLICATION];
 };
 
+Blockly.Blocks['misc_minmax'] = {
+  init: function() {
+    var FUNC_CHOICES = [
+        ['max', 'max'],
+        ['min', 'min'],
+    ];
+    this.setOutput(true, 'Number');
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown(FUNC_CHOICES), 'FUNC');
+    this.appendValueInput('A').setCheck('Number')
+        .appendField('a')
+        .setAlign(Blockly.ALIGN_RIGHT);
+    this.appendValueInput('B').setCheck('Number')
+        .appendField('b')
+        .setAlign(Blockly.ALIGN_RIGHT);
+    this.setColour(Blockly.Msg.MATH_HUE);
+    // Assign 'this' to a variable for use in the tooltip closure below.
+    var thisBlock = this;
+    var TOOLTIPS = [
+        ['max', 'Returns the greater of two numerical values.'],
+        ['min', 'Returns the smaller of two numerical values.'],
+        ];
+    this.setTooltip(function() {
+      var key = thisBlock.getFieldValue('FUNC');
+      for (var i = 0; i < TOOLTIPS.length; i++) {
+        if (TOOLTIPS[i][0] == key) {
+          return TOOLTIPS[i][1];
+        }
+      }
+      return '';
+    });
+    this.getFtcJavaInputType = function(inputName) {
+      switch (inputName) {
+        case 'A':
+        case 'B':
+          return 'double';
+      }
+      return '';
+    };
+    this.getFtcJavaOutputType = function() {
+      return 'double';
+    };
+  }
+};
+
+Blockly.JavaScript['misc_minmax'] = function(block) {
+  var func = block.getFieldValue('FUNC')
+  var a = Blockly.JavaScript.valueToCode(
+      block, 'A', Blockly.JavaScript.ORDER_COMMA);
+  var b = Blockly.JavaScript.valueToCode(
+      block, 'B', Blockly.JavaScript.ORDER_COMMA);
+  var code = 'Math.' + func + '(' + a + ', ' + b + ')';
+  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+};
+
+Blockly.FtcJava['misc_minmax'] = function(block) {
+  var func = block.getFieldValue('FUNC')
+  var a = Blockly.FtcJava.valueToCode(
+      block, 'A', Blockly.FtcJava.ORDER_COMMA);
+  var b = Blockly.FtcJava.valueToCode(
+      block, 'B', Blockly.FtcJava.ORDER_COMMA);
+  var code = 'Math.' + func + '(' + a + ', ' + b + ')';
+  return [code, Blockly.FtcJava.ORDER_FUNCTION_CALL];
+};
+
 Blockly.Blocks['misc_formatNumber'] = {
   init: function() {
     this.setOutput(true, 'String');
@@ -293,6 +358,9 @@ Blockly.Blocks['misc_roundDecimal'] = {
       }
       return '';
     };
+    this.getFtcJavaOutputType = function() {
+      return 'double';
+    };
   }
 };
 
@@ -399,6 +467,98 @@ Blockly.FtcJava['misc_typedEnum_TimeUnit'] = function(block) {
   return [code, Blockly.FtcJava.ORDER_MEMBER];
 };
 
+Blockly.Blocks['misc_setAndGetVariable'] = {
+  init: function() {
+    this.setOutput(true, null);
+    this.appendValueInput("VALUE")
+        .setCheck(null)
+        .appendField("set")
+        .appendField(new Blockly.FieldVariable("%{BKY_VARIABLES_DEFAULT_NAME}"), "VAR")
+        .appendField("to");
+    this.setColour(330);
+    this.setTooltip('Sets this variable to be equal to the input and then returns the value of the variable.');
+    Blockly.Extensions.apply('misc_setandgetvariable', this, false);
+  }
+};
+
+var MISC_SETANDGETVARIABLE_MIXIN = {
+  /**
+   * Add menu options to create getter/setter blocks.
+   * @param {!Array} options List of menu options to add to.
+   * @this Blockly.Block
+   */
+  customContextMenu: function(options) {
+    if (!this.isInFlyout && this.type == 'misc_setAndGetVariable') {
+      var name = this.getField('VAR').getText();
+      var typeToText = {
+        'variables_get': Blockly.Msg['VARIABLES_SET_CREATE_GET'].replace('%1', name),
+        'variables_set': Blockly.Msg['VARIABLES_GET_CREATE_SET'].replace('%1', name)
+      };
+      for (var type in typeToText) {
+        var option = {enabled: this.workspace.remainingCapacity() > 0};
+        option.text = typeToText[type];
+        var xmlField = Blockly.utils.xml.createElement('field');
+        xmlField.setAttribute('name', 'VAR');
+        xmlField.appendChild(Blockly.utils.xml.createTextNode(name));
+        var xmlBlock = Blockly.utils.xml.createElement('block');
+        xmlBlock.setAttribute('type', type);
+        xmlBlock.appendChild(xmlField);
+        option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+        options.push(option);
+      }
+    }
+  }
+};
+
+Blockly.Extensions.registerMixin('misc_setandgetvariable',
+   MISC_SETANDGETVARIABLE_MIXIN);
+
+
+Blockly.JavaScript['misc_setAndGetVariable'] = function(block) {
+  // Variable setter.
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
+      Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
+  var varName = Blockly.JavaScript.variableDB_.getName(
+      block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  var code = '(' + varName + ' = ' + argument0 + ')';
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.FtcJava['misc_setAndGetVariable'] = function(block) {
+  // Variable setter.
+  var argument0 = Blockly.FtcJava.valueToCode(block, 'VALUE',
+      Blockly.FtcJava.ORDER_ASSIGNMENT) || '0';
+  var varName = Blockly.FtcJava.variableDB_.getName(
+      block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  var code = '(' + varName + ' = ' + argument0 + ')';
+  return [code, Blockly.FtcJava.ORDER_ATOMIC];
+};
+
+Blockly.Blocks['misc_evaluateButIgnoreResult'] = {
+  init: function() {
+    this.appendValueInput('VALUE')
+        .appendField('evaluate but ignore result')
+        .setAlign(Blockly.ALIGN_RIGHT);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(functionColor);
+    this.setTooltip('Executes the connected block and ignores the result. ' +
+		    'Allows you to call a function and ignore the return value.');
+  }
+};
+
+Blockly.JavaScript['misc_evaluateButIgnoreResult'] = function(block) {
+  var value = Blockly.JavaScript.valueToCode(
+      block, 'VALUE', Blockly.JavaScript.ORDER_NONE);
+  return value + ';\n';
+};
+
+Blockly.FtcJava['misc_evaluateButIgnoreResult'] = function(block) {
+  var value = Blockly.FtcJava.valueToCode(
+      block, 'VALUE', Blockly.FtcJava.ORDER_NONE);
+  return value + ';\n';
+};
+
 //................................................................................
 // MyBlocks
 
@@ -501,7 +661,14 @@ function misc_call_domToMutation(block, xmlElement) {
   if (field) {
     var value = block.ftcAttributes_.heading || '';
     if (value) {
-      field.setValue(value);
+      // If the heading value is 'call', put it on the same row as the class/method name so it looks like a regular call block.
+      var classMethodInput = block.getInput('CLASS_METHOD');
+      if (value == 'call' && classMethodInput) {
+        block.removeInput('HEADING'); // Remove the heading row.
+        classMethodInput.insertFieldAt(0, value);
+      } else {
+        field.setValue(value);
+      }
     } else {
       block.removeInput('HEADING'); // Remove the heading row.
     }
@@ -723,7 +890,7 @@ Blockly.Blocks['misc_callJava_return'] = {
     this.setOutput(true);
     this.appendDummyInput('HEADING')
         .appendField(MY_BLOCKS_DEFAULT_HEADING, 'HEADING');
-    this.appendDummyInput()
+    this.appendDummyInput('CLASS_METHOD')
         .appendField(createNonEditableField(''), 'CLASS_NAME')
         .appendField('.')
         .appendField(createNonEditableField(''), 'METHOD_NAME');
@@ -819,7 +986,7 @@ Blockly.Blocks['misc_callJava_noReturn'] = {
   init: function() {
     this.appendDummyInput('HEADING')
         .appendField(MY_BLOCKS_DEFAULT_HEADING, 'HEADING');
-    this.appendDummyInput()
+    this.appendDummyInput('CLASS_METHOD')
         .appendField(createNonEditableField(''), 'CLASS_NAME')
         .appendField('.')
         .appendField(createNonEditableField(''), 'METHOD_NAME');

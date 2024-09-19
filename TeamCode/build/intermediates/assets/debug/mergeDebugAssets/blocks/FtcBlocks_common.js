@@ -29,7 +29,7 @@ Blockly.Block.prototype.setCommentText = function(text) {
   if (text == null) {
     clearBlockCommentPosition(block);
   }
-}
+};
 
 // NOTE(lizlooney): If/when we update to a newer version of blockly, we need to check that the
 // following still works.
@@ -63,7 +63,7 @@ Blockly.WorkspaceSvg.prototype.getBlocksBoundingBox = function() {
 	box.top = Math.min(box.top, 25);
 	box.left = Math.min(box.left, 25);
 	return box;
-}
+};
 
 // NOTE(lizlooney): If/when we update to a newer version of blockly, we need to check that the
 // following still works.
@@ -93,7 +93,28 @@ Blockly.WorkspaceSvg.prototype.cleanUp = function() {
   }
   Blockly.Events.setGroup(false);
   this.setResizesEnabled(true);
-}
+};
+
+// NOTE(lizlooney): If/when we update to a newer version of blockly, we need to check that the
+// following still works.
+Blockly.Variables.original_flyoutCategory = Blockly.Variables.flyoutCategory;
+
+Blockly.Variables.flyoutCategory = function(workspace) {
+  var xmlList = Blockly.Variables.original_flyoutCategory(workspace);
+
+  var variableModelList = workspace.getVariablesOfType('');
+  if (variableModelList.length > 0) {
+    // Create the "misc_setAndGetVariable" block.
+    var block = Blockly.utils.xml.createElement('block');
+    block.setAttribute('type', 'misc_setAndGetVariable');
+    block.setAttribute('gap', 8);
+    var mostRecentVariable = variableModelList[variableModelList.length - 1];
+    block.appendChild(Blockly.Variables.generateVariableFieldDom(mostRecentVariable));
+    // Insert the "misc_setAndGetVariable" block at position 2, right after the "variable_set" block.
+    xmlList.splice(2, 0, block);
+  }
+  return xmlList;
+};
 
 function initializeFtcBlocks() {
   setUpWebSocket();
@@ -359,6 +380,7 @@ function initializeSplit() {
 
 // Initialize global variables & blockly itself
 function initializeBlockly() {
+  addReservedWordsForJavaScriptRuntime();
   addReservedWordsForJavaScript();
   addReservedWordsForFtcJava();
   addReservedWordsForFtcJavaObsolete();
@@ -419,10 +441,13 @@ function initializeBlockly() {
     if (getCurrentBlkFileContent() == savedBlkFileContent) {
       return undefined;
     }
-    // It doesn't matter what string we return here. The browser will always use a standard message
-    // for security reasons.
-    (e || window.event).returnValue = ''; // Gecko + IE
-    return ''; // Gecko + Webkit, Safari, Chrome etc.
+
+    e.preventDefault();
+
+    // It doesn't matter what string we return here, as long as it is not an empty string.
+    // The browser will always use a standard message for security reasons.
+    (e || window.event).returnValue = 'unsaved changes'; // Gecko + IE
+    return 'unsaved changes'; // Gecko + Webkit, Safari, Chrome etc.
   });
 
   workspace.addChangeListener(function(event) {
@@ -499,6 +524,30 @@ function initializeBlockly() {
       showJava();
     }
   });
+}
+
+function addReservedWordsForJavaScriptRuntime() {
+  Blockly.JavaScript.addReservedWords('orientation'); // Fixes ftc_sdk issue #2779.
+
+  // Identifiers from runtime.js.
+  Blockly.JavaScript.addReservedWords('currentBlockLabel');
+  Blockly.JavaScript.addReservedWords('callRunOpMode');
+  Blockly.JavaScript.addReservedWords('startBlockExecution');
+  Blockly.JavaScript.addReservedWords('endBlockExecution');
+  Blockly.JavaScript.addReservedWords('telemetryAddTextData');
+  Blockly.JavaScript.addReservedWords('telemetrySpeak');
+  Blockly.JavaScript.addReservedWords('callJava');
+  Blockly.JavaScript.addReservedWords('callJava_boolean');
+  Blockly.JavaScript.addReservedWords('callJava_String');
+  Blockly.JavaScript.addReservedWords('callHardware');
+  Blockly.JavaScript.addReservedWords('callHardware_boolean');
+  Blockly.JavaScript.addReservedWords('callHardware_String');
+  Blockly.JavaScript.addReservedWords('listLength');
+  Blockly.JavaScript.addReservedWords('listIsEmpty');
+  Blockly.JavaScript.addReservedWords('nullOrJson');
+  Blockly.JavaScript.addReservedWords('evalIfTruthy');
+  Blockly.JavaScript.addReservedWords('objectCache');
+  Blockly.JavaScript.addReservedWords('getObjectViaJson');
 }
 
 function resizeBlocklyArea() {
@@ -767,12 +816,12 @@ function checkBlock(block) {
 
     // If warningText is null, the following will clear a previous warning.
     block.setWarningText(warningText);
-    if (warningText && block.warning) {
+    if (warningText) {
       // If the warning text has changed (or is new), make the warning visible.
       // If the warning text has not changed, make the warning visible if it wasn't previously
       // hidden by the user.
       if (readBlockWarningText(block) != warningText || !readBlockWarningHidden(block)) {
-        block.warning.setVisible(true);
+	makeWarningVisible(block);
       }
     }
     saveBlockWarning(block);
@@ -793,6 +842,16 @@ function addWarning(warningText, textToAdd) {
   }
   warningText += textToAdd;
   return warningText;
+}
+
+function makeWarningVisible(block) {
+  if (block.warning) {
+    block.warning.setVisible(true);
+  } else {
+    setTimeout(function() {
+      makeWarningVisible(block);
+    }, 10);
+  }
 }
 
 function removeHardwareIdentifierSuffix(identifierFieldValue) {
@@ -1203,3 +1262,83 @@ function generateJavaCode() {
 function blockIsDisabled(block) {
   return !block.isEnabled() || block.getInheritedDisabled();
 }
+
+// NOTE(lizlooney): If/when we update to a newer version of blockly, we can remove this.
+Blockly.BlockSvg.prototype.setWarningText = function(text, opt_id) {
+  if (!this.warningTextDb_) {
+    // Create a database of warning PIDs.
+    // Only runs once per block (and only those with warnings).
+    this.warningTextDb_ = Object.create(null);
+  }
+  var id = opt_id || '';
+  if (!id) {
+    // Kill all previous pending processes, this edit supersedes them all.
+    for (var n in this.warningTextDb_) {
+      clearTimeout(this.warningTextDb_[n]);
+      delete this.warningTextDb_[n];
+    }
+  } else if (this.warningTextDb_[id]) {
+    // Only queue up the latest change.  Kill any earlier pending process.
+    clearTimeout(this.warningTextDb_[id]);
+    delete this.warningTextDb_[id];
+  }
+  if (this.workspace.isDragging()) {
+    // Don't change the warning text during a drag.
+    // Wait until the drag finishes.
+    var thisBlock = this;
+    this.warningTextDb_[id] = setTimeout(function() {
+      if (thisBlock.workspace) {  // Check block wasn't deleted.
+        delete thisBlock.warningTextDb_[id];
+        thisBlock.setWarningText(text, id);
+      }
+    }, 100);
+    return;
+  }
+  if (this.isInFlyout) {
+    text = null;
+  }
+
+  if (text) { // Note(lizlooney): This line was added to fix https://github.com/FIRST-Tech-Challenge/ftc_sdk/issues/3119
+  // Bubble up to add a warning on top-most collapsed block.
+  var parent = this.getSurroundParent();
+  var collapsedParent = null;
+  while (parent) {
+    if (parent.isCollapsed()) {
+      collapsedParent = parent;
+    }
+    parent = parent.getSurroundParent();
+  }
+  if (collapsedParent) {
+    collapsedParent.setWarningText(Blockly.Msg['COLLAPSED_WARNINGS_WARNING'],
+        Blockly.BlockSvg.COLLAPSED_WARNING_ID);
+  }
+  } // Note(lizlooney): This line was added to fix https://github.com/FIRST-Tech-Challenge/ftc_sdk/issues/3119
+
+  var changedState = false;
+  if (typeof text == 'string') {
+    if (!this.warning) {
+      this.warning = new Blockly.Warning(this);
+      changedState = true;
+    }
+    this.warning.setText(/** @type {string} */ (text), id);
+  } else {
+    // Dispose all warnings if no ID is given.
+    if (this.warning && !id) {
+      this.warning.dispose();
+      changedState = true;
+    } else if (this.warning) {
+      var oldText = this.warning.getText();
+      this.warning.setText('', id);
+      var newText = this.warning.getText();
+      if (!newText) {
+        this.warning.dispose();
+      }
+      changedState = oldText != newText;
+    }
+  }
+  if (changedState && this.rendered) {
+    this.render();
+    // Adding or removing a warning icon will cause the block to change shape.
+    this.bumpNeighbours_();
+  }
+};
