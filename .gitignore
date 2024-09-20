@@ -1,5 +1,4 @@
 local.properties
-.gradle/*
 FtcRobotController/build/intermediates
 TeamCode/build/intermediates
 
