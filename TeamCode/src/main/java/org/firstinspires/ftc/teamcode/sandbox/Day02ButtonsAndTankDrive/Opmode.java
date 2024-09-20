@@ -18,6 +18,12 @@ DcMotor rearRight;
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         rearLeft = hardwareMap.get(DcMotor.class, "rearLeft");
         rearRight = hardwareMap.get(DcMotor.class, "rearRight");
+
+        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        rearRight.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
 
@@ -26,9 +32,9 @@ DcMotor rearRight;
 
             frontLeft.setPower(gamepad1.left_stick_y);
             frontRight.setPower(gamepad1.right_stick_y);
-            rearLeft.setPower(gamepad1.right_stick_y);
-            rearRight.setPower(gamepad1.right_stick_y);
 
+            rearLeft.setPower(gamepad1.left_stick_y);
+            rearRight.setPower(gamepad1.right_stick_y);
 
 
     }
