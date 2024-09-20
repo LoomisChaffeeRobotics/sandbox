@@ -24,20 +24,36 @@ public class Kservo extends OpMode {
     @Override
     public void loop() {
 
-         if (gamepad1.dpad_left) {
-             ClawL.setPosition(0.5);
-         }
-        if (gamepad1.dpad_right) {
-            ClawR.setPosition(0.5);
+        if (gamepad1.dpad_left) {
+            ClawL.setPosition(ClawL.getPosition() + 0.55);
         }
-        if (gamepad1.a) {
-            Wrist.setPosition(0.5);
+      if (gamepad1.dpad_right) {
+          ClawR.setPosition(ClawR.getPosition() + 0.55);
+      }
+      if (gamepad1.a) {
+          Wrist.setPosition(Wrist.getPosition() + 0.55);
+      }
+      if (gamepad1.b) {
+          Hook.setPosition(Hook.getPosition() + 0.55);
+      }
+      if (gamepad1.x) {
+          Launcher.setPosition(Launcher.getPosition() + 0.55);
+      }
+
+        if (gamepad1.left_bumper) {
+            ClawL.setPosition(ClawL.getPosition() - 0.55);
         }
-        if (gamepad1.x) {
-            Hook.setPosition(0.5);
+        if (gamepad1.right_bumper) {
+            ClawR.setPosition(ClawR.getPosition() - 0.55);
         }
-        if (gamepad1.b) {
-            Launcher.setPosition(0.5);
+        if (gamepad1.dpad_down) {
+            Wrist.setPosition(Wrist.getPosition() - 0.55);
+        }
+        if (gamepad1.dpad_up) {
+            Hook.setPosition(Hook.getPosition() - 0.55);
+        }
+        if (gamepad1.touchpad) {
+            Launcher.setPosition(Launcher.getPosition() - 0.55);
         }
     }
 
