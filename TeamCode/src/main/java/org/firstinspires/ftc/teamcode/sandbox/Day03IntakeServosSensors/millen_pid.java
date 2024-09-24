@@ -35,7 +35,7 @@ public class millen_pid extends OpMode{
         lastError = error;
         timer.reset();
         telemetry.addData("Position:", motor1.getCurrentPosition());
-        telemetry.addData("Target Pos:", motor1.getTargetPosition());
+        telemetry.addData("Target Pos:", TargetPos);
         telemetry.update();
         
     }
