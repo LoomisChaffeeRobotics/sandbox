@@ -15,7 +15,7 @@ public class millen_pid extends OpMode{
     public static double Ki = 0;
     double lastError = 0;
     double integralSum = 0;
-    int TargetPos = 500;
+    int TargetPos = 200;
     ElapsedTime timer;
     
     @Override
