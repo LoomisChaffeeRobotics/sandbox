@@ -13,6 +13,7 @@ public class millen_pid extends OpMode{
     DcMotor motor1;
     public static double Kp = 0;
     public static double Ki = 0;
+    public static double Kf = 0;
     double lastError = 0;
     double integralSum = 0;
     int TargetPos = 200;
@@ -30,7 +31,8 @@ public class millen_pid extends OpMode{
         int error = TargetPos - encoderPosition;
         double derivative = ((error - lastError) / timer.seconds());
         integralSum += (error * timer.seconds());
-        double out = ((Kp * error) + (Ki * integralSum));
+        double feedForward = Math.cos(Math.toRadians(motor1.getCurrentPosition()*360/1425));
+        double out = ((Kp * error) + (Ki * integralSum) + (Kf * feedForward));
         motor1.setPower(out);
         lastError = error;
         timer.reset();
