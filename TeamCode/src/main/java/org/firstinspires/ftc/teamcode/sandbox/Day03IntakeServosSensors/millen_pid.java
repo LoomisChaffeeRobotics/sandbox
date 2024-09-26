@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.sandbox.Day03IntakeServosSensors;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -18,11 +19,15 @@ public class millen_pid extends OpMode{
     double integralSum = 0;
     int TargetPos = 200;
     ElapsedTime timer;
+    FtcDashboard dashboard;
+
     
     @Override
     public void init() {
         motor1 = hardwareMap.get(DcMotor.class, "motor1");
         timer = new ElapsedTime();
+        dashboard = FtcDashboard.getInstance();
+        telemetry = dashboard.getTelemetry();
     }
 
     @Override
