@@ -12,10 +12,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class millen_pid extends OpMode{
 
     DcMotor motor1;
-    public static double Kd = 1e-5;
-    public static double Kp = 1e-5;
-    public static double Ki = 1e-5;
-    public static double Kf = 2e-1;
+    public static double Kd = 1e-4;
+    public static double Kp = 3.5e-3;
+    public static double Ki = 4e-5;
+    public static double Kf = 2.5e-1;
     double lastError = 0;
     double integralSum = 0;
     public static int TargetPos = 200;
