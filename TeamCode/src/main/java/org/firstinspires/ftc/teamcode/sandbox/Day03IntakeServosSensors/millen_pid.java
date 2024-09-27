@@ -12,12 +12,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class millen_pid extends OpMode{
 
     DcMotor motor1;
-    public static double Kp = 0;
-    public static double Ki = 0;
-    public static double Kf = 0;
+    public static double Kd = 1e-5;
+    public static double Kp = 1e-5;
+    public static double Ki = 1e-5;
+    public static double Kf = 2e-1;
     double lastError = 0;
     double integralSum = 0;
-    int TargetPos = 200;
+    public static int TargetPos = 200;
     ElapsedTime timer;
     FtcDashboard dashboard;
 
@@ -37,12 +38,13 @@ public class millen_pid extends OpMode{
         double derivative = ((error - lastError) / timer.seconds());
         integralSum += (error * timer.seconds());
         double feedForward = Math.cos(Math.toRadians(motor1.getCurrentPosition()*360/1425));
-        double out = ((Kp * error) + (Ki * integralSum) + (Kf * feedForward));
+        double out = ((Kp * error) + (Ki * integralSum) + (-Kf * feedForward) + (Kd * derivative));
         motor1.setPower(out);
         lastError = error;
         timer.reset();
         telemetry.addData("Position:", motor1.getCurrentPosition());
         telemetry.addData("Target Pos:", TargetPos);
+        telemetry.addData("Motor power", out);
         telemetry.update();
         
     }
