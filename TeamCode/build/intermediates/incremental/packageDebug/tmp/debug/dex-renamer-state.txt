@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #Wed Oct 02 14:28:54 EDT 2024
 base.0=/Users/dylanforman/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
 base.1=/Users/dylanforman/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeLibDexDebug/10/classes.dex
@@ -14,6 +15,24 @@ base.6=/Users/dylanforman/Documents/GitHub/sandbox/TeamCode/build/intermediates/
 base.7=/Users/dylanforman/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/14/classes.dex
 base.8=/Users/dylanforman/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/15/classes.dex
 base.9=/Users/dylanforman/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/2/classes.dex
+=======
+#Tue Oct 01 17:21:56 EDT 2024
+base.0=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
+base.1=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeLibDexDebug/10/classes.dex
+base.10=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/3/classes.dex
+base.11=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/5/classes.dex
+base.12=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/9/classes.dex
+base.13=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeExtDexDebug/classes2.dex
+base.14=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeExtDexDebug/classes3.dex
+base.2=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeLibDexDebug/11/classes.dex
+base.3=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeLibDexDebug/8/classes.dex
+base.4=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
+base.5=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/1/classes.dex
+base.6=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/10/classes.dex
+base.7=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/14/classes.dex
+base.8=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/15/classes.dex
+base.9=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/2/classes.dex
+>>>>>>> 95501b60589682dbabcde6d65edf38e6ff0d6da1
 path.0=classes.dex
 path.1=10/classes.dex
 path.10=3/classes.dex
