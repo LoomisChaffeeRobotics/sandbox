@@ -23,7 +23,7 @@ SampleMecanumDrive drive;
         double rx = gamepad1.right_stick_x;
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
-        double rotY = y * Math.sin(-botHeading) + x * Math.cos(-botHeading);
+        double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
         drive.setMotorPowers((rotY + rotX + rx) / denominator,(rotY - rotX + rx) / denominator,(rotY - rotX - rx) / denominator,(rotY + rotX - rx) / denominator);
         if (gamepad1.options) {
