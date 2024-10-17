@@ -58,4 +58,8 @@ public class cameraThing extends OpMode {
 
 
     }
+    private void aprilTagRobotPosition(){
+        List<AprilTagDetection> currentDetections = myAprilTagProcessor.getDetections();
+        if(currentDetections.size)
+    }
 }
