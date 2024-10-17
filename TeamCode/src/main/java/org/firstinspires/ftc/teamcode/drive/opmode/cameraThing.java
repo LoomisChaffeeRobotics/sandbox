@@ -58,4 +58,20 @@ public class cameraThing extends OpMode {
 
 
     }
+    private void aprilTagRobotPosition() {
+        List<AprilTagDetection> currentDetections = myAprilTagProcessor.getDetections();
+        if (!currentDetections.isEmpty()) {
+            AprilTagDetection aprilTag1 = currentDetections.get(1);
+             double rotatedPerceivedRobotPosX = -Math.sin(aprilTag1.ftcPose.x) + Math.cos(aprilTag1.ftcPose.y);
+             double rotatedPerceivedRobotPosY = Math.cos(aprilTag1.ftcPose.x) + Math.sin(aprilTag1.ftcPose.y);
+            double realPositionX = aprilTag1.rawPose.x - rotatedPerceivedRobotPosX;
+            double realPositionY = aprilTag1.rawPose.y - rotatedPerceivedRobotPosY;
+            telemetry.addData("realPositionX", realPositionX);
+            telemetry.addData("realPositionY", realPositionY);
+
+        }
+
+
+
+    }
 }
