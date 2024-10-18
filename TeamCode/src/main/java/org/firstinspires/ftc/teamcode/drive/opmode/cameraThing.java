@@ -24,7 +24,7 @@ public class cameraThing extends OpMode {
 
     @Override
     public void init() {
-        drive  = new SampleMecanumDrive(hardwareMap);
+        drive = new SampleMecanumDrive(hardwareMap);
 
         imu = hardwareMap.get(IMU.class, "imu");
 // Create the AprilTag processor and assign it to a variable.
@@ -36,10 +36,10 @@ public class cameraThing extends OpMode {
     @Override
     public void loop() {
         aprilTagTelemetry();
-        telemetry.addData("pose",drive.getPoseEstimate());
+        telemetry.addData("pose", drive.getPoseEstimate());
         drive.update();
-        drive.setPoseEstimate(aprilTagRobotPosition());
     }
+
     private void aprilTagTelemetry() {
         List<AprilTagDetection> currentDetections = myAprilTagProcessor.getDetections();
         telemetry.addData("# AprilTags Detected", currentDetections.size());
@@ -60,15 +60,4 @@ public class cameraThing extends OpMode {
 
     }
 
-    private Pose2d aprilTagRobotPosition() {
-        List<AprilTagDetection> currentDetections = myAprilTagProcessor.getDetections();
-        if (!currentDetections.isEmpty()) {
-            AprilTagDetection aprilTag1 = currentDetections.get(1);
-            double rotatedPerceivedRobotPosX = -Math.sin(aprilTag1.ftcPose.x) + Math.cos(aprilTag1.ftcPose.y);
-            double rotatedPerceivedRobotPosY = Math.cos(aprilTag1.ftcPose.x) + Math.sin(aprilTag1.ftcPose.y);
-            double realPositionX = aprilTag1.rawPose.x - rotatedPerceivedRobotPosX;
-            double realPositionY = aprilTag1.rawPose.y - rotatedPerceivedRobotPosY;
-            telemetry.addData("realPositionX", realPositionX);
-            telemetry.addData("realPositionY", realPositionY);
-            new Pose2d(realPositionX,realPositionY,imu.getRobotOrientation());
 }

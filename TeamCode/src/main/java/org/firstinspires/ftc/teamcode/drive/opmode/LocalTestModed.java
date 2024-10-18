@@ -60,7 +60,7 @@ public class LocalTestModed extends LinearOpMode {
             if (!currentDetections.isEmpty()) {
                 AprilTagDetection aprilTag1 = currentDetections.get(1);
                 Pose3D calculatedPose = aprilTag1.robotPose;
-                Pose2d aprilTagPoseEstimate = new Pose2d((calculatedPose.getPosition().x,
+                Pose2d aprilTagPoseEstimate = new Pose2d(calculatedPose.getPosition().x,
                         calculatedPose.getPosition().y,
                         calculatedPose.getOrientation().getYaw());
                 trajectorySequenceRunner.update(aprilTagPoseEstimate,drive.getPoseVelocity());
