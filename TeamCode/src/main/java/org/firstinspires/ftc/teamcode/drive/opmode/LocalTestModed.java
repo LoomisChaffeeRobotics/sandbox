@@ -5,7 +5,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceRunner;
+import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+
+import java.util.List;
 
 /**
  * This is a simple teleop routine for testing localization. Drive the robot around like a normal
@@ -16,13 +23,21 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
  */
 @TeleOp(group = "drive")
 public class LocalTestModed extends LinearOpMode {
+    AprilTagProcessor myAprilTagProcessor;
+    VisionPortal myVisionPortal;
+    SampleMecanumDrive drive;
+    TrajectorySequenceRunner trajectorySequenceRunner;
+    int visionCounter; // TODO set this up with vision portal to not run each tick
+
     @Override
     public void runOpMode() throws InterruptedException {
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        drive = new SampleMecanumDrive(hardwareMap);
 
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         waitForStart();
+
+        trajectorySequenceRunner = drive.trajectorySequenceRunner;
 
         while (!isStopRequested()) {
             drive.setWeightedDrivePower(
@@ -40,6 +55,17 @@ public class LocalTestModed extends LinearOpMode {
             telemetry.addData("y", poseEstimate.getY());
             telemetry.addData("heading", poseEstimate.getHeading());
             telemetry.update();
+
+            List<AprilTagDetection> currentDetections = myAprilTagProcessor.getDetections();
+            if (!currentDetections.isEmpty()) {
+                AprilTagDetection aprilTag1 = currentDetections.get(1);
+                Pose3D calculatedPose = aprilTag1.robotPose;
+                Pose2d aprilTagPoseEstimate = new Pose2d((calculatedPose.getPosition().x,
+                        calculatedPose.getPosition().y,
+                        calculatedPose.getOrientation().getYaw());
+                trajectorySequenceRunner.update(aprilTagPoseEstimate,drive.getPoseVelocity());
+            }
         }
     }
 }
+

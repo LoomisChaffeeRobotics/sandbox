@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.drive.opmode;
 
+import com.arcrobotics.ftclib.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -30,7 +31,6 @@ public class cameraThing extends OpMode {
         myAprilTagProcessor = AprilTagProcessor.easyCreateWithDefaults();
         // Enable or disable the AprilTag processor.
         myVisionPortal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"), myAprilTagProcessor);
-
     }
 
     @Override
@@ -38,6 +38,7 @@ public class cameraThing extends OpMode {
         aprilTagTelemetry();
         telemetry.addData("pose",drive.getPoseEstimate());
         drive.update();
+        drive.setPoseEstimate(aprilTagRobotPosition());
     }
     private void aprilTagTelemetry() {
         List<AprilTagDetection> currentDetections = myAprilTagProcessor.getDetections();
@@ -58,8 +59,16 @@ public class cameraThing extends OpMode {
 
 
     }
-    private void aprilTagRobotPosition(){
+
+    private Pose2d aprilTagRobotPosition() {
         List<AprilTagDetection> currentDetections = myAprilTagProcessor.getDetections();
-        if(currentDetections.size)
-    }
+        if (!currentDetections.isEmpty()) {
+            AprilTagDetection aprilTag1 = currentDetections.get(1);
+            double rotatedPerceivedRobotPosX = -Math.sin(aprilTag1.ftcPose.x) + Math.cos(aprilTag1.ftcPose.y);
+            double rotatedPerceivedRobotPosY = Math.cos(aprilTag1.ftcPose.x) + Math.sin(aprilTag1.ftcPose.y);
+            double realPositionX = aprilTag1.rawPose.x - rotatedPerceivedRobotPosX;
+            double realPositionY = aprilTag1.rawPose.y - rotatedPerceivedRobotPosY;
+            telemetry.addData("realPositionX", realPositionX);
+            telemetry.addData("realPositionY", realPositionY);
+            new Pose2d(realPositionX,realPositionY,imu.getRobotOrientation());
 }
