@@ -58,6 +58,7 @@ public class LocalTestModed extends LinearOpMode {
             telemetry.addData("x", poseEstimate.getX());
             telemetry.addData("y", poseEstimate.getY());
             telemetry.addData("heading", poseEstimate.getHeading());
+            telemetry.addData("AprilTags Detected", myAprilTagProcessor.getDetections());
             telemetry.update();
 
             List<AprilTagDetection> currentDetections = myAprilTagProcessor.getDetections();
