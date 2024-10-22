@@ -318,6 +318,5 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     }
 
-    public void setPoseEstimate(Pose3D robotPose) {
-    }
+
 }

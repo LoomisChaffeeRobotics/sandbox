@@ -28,6 +28,9 @@ public class LocalTestModed extends LinearOpMode {
     VisionPortal myVisionPortal;
     SampleMecanumDrive drive;
     TrajectorySequenceRunner trajectorySequenceRunner;
+    Pose2d aprilTagPoseEstimate= new Pose2d(0,0,0);
+    Pose2d poseError = new Pose2d(0,0,0);
+
     int visionCounter; // TODO set this up with vision portal to not run each tick
 
     @Override
@@ -44,6 +47,7 @@ public class LocalTestModed extends LinearOpMode {
         trajectorySequenceRunner = drive.trajectorySequenceRunner;
 
         while (!isStopRequested()) {
+
             drive.setWeightedDrivePower(
                     new Pose2d(
                             -gamepad1.left_stick_y,
@@ -55,9 +59,9 @@ public class LocalTestModed extends LinearOpMode {
             drive.update();
 
             Pose2d poseEstimate = drive.getPoseEstimate();
-            telemetry.addData("x", poseEstimate.getX());
-            telemetry.addData("y", poseEstimate.getY());
-            telemetry.addData("heading", poseEstimate.getHeading());
+            telemetry.addData("x", aprilTagPoseEstimate.getX());
+            telemetry.addData("y", aprilTagPoseEstimate.getY());
+            telemetry.addData("heading", aprilTagPoseEstimate.getHeading());
             telemetry.addData("AprilTags Detected", myAprilTagProcessor.getDetections());
             telemetry.update();
 
@@ -66,16 +70,21 @@ public class LocalTestModed extends LinearOpMode {
             if (!currentDetections.isEmpty()) {
                 AprilTagDetection aprilTag1 = currentDetections.get(0);
                 Pose3D calculatedPose = aprilTag1.robotPose;
-                Pose2d aprilTagPoseEstimate = new Pose2d(calculatedPose.getPosition().x,
+                 aprilTagPoseEstimate = new Pose2d(calculatedPose.getPosition().x,
                         calculatedPose.getPosition().y,
-                        calculatedPose.getOrientation().getYaw());
-                trajectorySequenceRunner.update(aprilTagPoseEstimate,drive.getPoseVelocity());
-
-
+                        Math.toRadians(calculatedPose.getOrientation().getYaw()-90));
+                poseError = drive.getPoseEstimate().minus(aprilTagPoseEstimate);
+                drive.setPoseEstimate(aprilTagPoseEstimate);
 
 
             }
+
+
+
+
         }
+
     }
 }
+
 
