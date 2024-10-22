@@ -62,6 +62,7 @@ public class LocalTestModed extends LinearOpMode {
             telemetry.update();
 
             List<AprilTagDetection> currentDetections = myAprilTagProcessor.getDetections();
+
             if (!currentDetections.isEmpty()) {
                 AprilTagDetection aprilTag1 = currentDetections.get(0);
                 Pose3D calculatedPose = aprilTag1.robotPose;
@@ -69,6 +70,10 @@ public class LocalTestModed extends LinearOpMode {
                         calculatedPose.getPosition().y,
                         calculatedPose.getOrientation().getYaw());
                 trajectorySequenceRunner.update(aprilTagPoseEstimate,drive.getPoseVelocity());
+
+
+
+
             }
         }
     }
