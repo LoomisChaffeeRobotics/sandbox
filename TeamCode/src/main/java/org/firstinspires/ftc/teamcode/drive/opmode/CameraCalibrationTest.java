@@ -1,4 +1,4 @@
-/*
+package org.firstinspires.ftc.teamcode.drive.opmode;/*
  * Copyright (c) 2023 FIRST
  *
  * All rights reserved.
@@ -31,7 +31,6 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.robotcontroller.external.samples;
 
 import android.util.Size;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
