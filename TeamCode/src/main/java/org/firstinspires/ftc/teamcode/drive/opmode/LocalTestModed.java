@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.drive.opmode;
 
+import android.util.Size;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -26,6 +28,7 @@ import java.util.List;
 public class LocalTestModed extends LinearOpMode {
     AprilTagProcessor myAprilTagProcessor;
     VisionPortal myVisionPortal;
+    VisionPortal.Builder myVisionPortalBuilder;
     SampleMecanumDrive drive;
     TrajectorySequenceRunner trajectorySequenceRunner;
     Pose2d aprilTagPoseEstimate= new Pose2d(0,0,0);
@@ -43,9 +46,24 @@ public class LocalTestModed extends LinearOpMode {
                 .setDrawCubeProjection(true)
                 .setLensIntrinsics(996.968,996.968,929.592, 530.676)
                 .build();
-        myVisionPortal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"), myAprilTagProcessor);
+        // Create a new VisionPortal Builder object.
+        myVisionPortalBuilder = new VisionPortal.Builder();
 
-        drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+// Specify the camera to be used for this VisionPortal.
+        myVisionPortalBuilder.setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"));      // Other choices are: RC phone camera and "switchable camera name".
+
+// Add the AprilTag Processor to the VisionPortal Builder.
+        myVisionPortalBuilder.addProcessor(myAprilTagProcessor);       // An added Processor is enabled by default.
+
+// Optional: set other custom features of the VisionPortal (4 are shown here).
+        myVisionPortalBuilder.setCameraResolution(new Size(1920, 1080));  // Each resolution, for each camera model, needs calibration values for good pose estimation.
+        myVisionPortalBuilder.setStreamFormat(VisionPortal.StreamFormat.YUY2);  // MJPEG format uses less bandwidth than the default YUY2.
+        myVisionPortalBuilder.enableLiveView(true);      // Enable LiveView (RC preview).
+        myVisionPortalBuilder.setAutoStopLiveView(true);     // Automatically stop LiveView (RC preview) when all vision processors are disabled.
+
+// Create a VisionPortal by calling build()
+        myVisionPortal = myVisionPortalBuilder.build();
+        drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         waitForStart();
 
         trajectorySequenceRunner = drive.trajectorySequenceRunner;
