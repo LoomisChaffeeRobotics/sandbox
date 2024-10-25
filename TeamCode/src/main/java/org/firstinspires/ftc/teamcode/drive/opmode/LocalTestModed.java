@@ -6,6 +6,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
@@ -26,6 +27,7 @@ import java.util.List;
  */
 @TeleOp(group = "drive")
 public class LocalTestModed extends LinearOpMode {
+    IMU imu;
     AprilTagProcessor myAprilTagProcessor;
     VisionPortal myVisionPortal;
     VisionPortal.Builder myVisionPortalBuilder;
@@ -39,6 +41,7 @@ public class LocalTestModed extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         drive = new SampleMecanumDrive(hardwareMap);
+        imu = hardwareMap.get(IMU.class, "imu");
         myAprilTagProcessor = new AprilTagProcessor.Builder()
                 .setDrawAxes(true)
                 .setDrawTagID(true)
@@ -85,7 +88,7 @@ public class LocalTestModed extends LinearOpMode {
             Pose2d poseEstimate = drive.getPoseEstimate();
             telemetry.addData("x", aprilTagPoseEstimate.getX());
             telemetry.addData("y", aprilTagPoseEstimate.getY());
-            telemetry.addData("heading", Math.toDegrees(aprilTagPoseEstimate.getHeading()));
+            telemetry.addData("heading", Math.toDegrees(imu.getRobotYawPitchRollAngles().getYaw()));
             telemetry.addData("AprilTags Detected", myAprilTagProcessor.getDetections());
             telemetry.update();
 
@@ -96,7 +99,7 @@ public class LocalTestModed extends LinearOpMode {
                 Pose3D calculatedPose = aprilTag1.robotPose;
                  aprilTagPoseEstimate = new Pose2d(calculatedPose.getPosition().x,
                         calculatedPose.getPosition().y,
-                        Math.toRadians(calculatedPose.getOrientation().getYaw()));
+                        Math.toRadians(imu.getRobotYawPitchRollAngles().getYaw()));
                 poseError = drive.getPoseEstimate().minus(aprilTagPoseEstimate);
                 drive.setPoseEstimate(aprilTagPoseEstimate);
 
