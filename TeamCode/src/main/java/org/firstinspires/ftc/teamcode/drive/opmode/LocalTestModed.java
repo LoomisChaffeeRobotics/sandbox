@@ -85,7 +85,7 @@ public class LocalTestModed extends LinearOpMode {
             Pose2d poseEstimate = drive.getPoseEstimate();
             telemetry.addData("x", aprilTagPoseEstimate.getX());
             telemetry.addData("y", aprilTagPoseEstimate.getY());
-            telemetry.addData("heading", aprilTagPoseEstimate.getHeading());
+            telemetry.addData("heading", Math.toDegrees(aprilTagPoseEstimate.getHeading()));
             telemetry.addData("AprilTags Detected", myAprilTagProcessor.getDetections());
             telemetry.update();
 
@@ -96,7 +96,7 @@ public class LocalTestModed extends LinearOpMode {
                 Pose3D calculatedPose = aprilTag1.robotPose;
                  aprilTagPoseEstimate = new Pose2d(calculatedPose.getPosition().x,
                         calculatedPose.getPosition().y,
-                        drive.getPoseEstimate().getHeading());
+                        Math.toRadians(calculatedPose.getOrientation().getYaw()));
                 poseError = drive.getPoseEstimate().minus(aprilTagPoseEstimate);
                 drive.setPoseEstimate(aprilTagPoseEstimate);
 
