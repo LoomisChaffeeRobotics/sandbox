@@ -36,15 +36,21 @@ public class LocalTestModed extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         drive = new SampleMecanumDrive(hardwareMap);
-        myAprilTagProcessor = AprilTagProcessor.easyCreateWithDefaults();
+        myAprilTagProcessor = new AprilTagProcessor.Builder()
+                .setDrawAxes(true)
+                .setDrawTagID(true)
+                .setDrawTagOutline(true)
+                .setDrawCubeProjection(true)
+                .setLensIntrinsics(996.968,996.968,929.592, 530.676)
+                .build();
         myVisionPortal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"), myAprilTagProcessor);
 
-
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
         waitForStart();
 
         trajectorySequenceRunner = drive.trajectorySequenceRunner;
+
+
 
         while (!isStopRequested()) {
 
@@ -72,7 +78,7 @@ public class LocalTestModed extends LinearOpMode {
                 Pose3D calculatedPose = aprilTag1.robotPose;
                  aprilTagPoseEstimate = new Pose2d(calculatedPose.getPosition().x,
                         calculatedPose.getPosition().y,
-                        Math.toRadians(calculatedPose.getOrientation().getYaw()-90));
+                        drive.getPoseEstimate().getHeading());
                 poseError = drive.getPoseEstimate().minus(aprilTagPoseEstimate);
                 drive.setPoseEstimate(aprilTagPoseEstimate);
 
