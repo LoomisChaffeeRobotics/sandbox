@@ -10,14 +10,12 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
-import org.firstinspires.ftc.robotcore.external.navigation.Position;
-import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
+import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
+
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceRunner;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagPoseFtc;
 import org.firstinspires.ftc.vision.apriltag.AprilTagPoseRaw;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
@@ -72,16 +70,18 @@ public class CameraHeadingTest extends OpMode {
 
         if(!currentDetections.isEmpty()){
             AprilTagDetection aprilTag1 = currentDetections.get(0);
-            AprilTagPoseRaw raw = aprilTag1.rawPose;
-            AprilTagPoseRaw rawTwo = new AprilTagPoseRaw(
-                    raw.x,
-                    raw.y + 5.5,
-                    raw.z,
-                    raw.R
-            );
-                
-
-
+            AprilTagPoseRaw pose = aprilTag1.rawPose;
+            double roboX = pose.x;
+            double roboY =  pose.y;
+            VectorF aprilVector = aprilTag1.metadata.fieldPosition;
+            double heading = drive.getPoseEstimate().getHeading();
+            float relativeX = (float) (-roboX * Math.sin(heading)+ roboY*Math.cos(heading));
+            float relativeY = (float) (roboY * Math.sin(heading)+ roboX*Math.cos(heading));
+            VectorF relativeVector = new VectorF(relativeX,relativeY,0);
+            VectorF robotVector = aprilVector.subtracted(relativeVector);
+            Pose2d calculatedPose = new Pose2d(robotVector.getData()[0],robotVector.getData()[1],heading);
+            drive.setPoseEstimate(calculatedPose);
         }
+        drive.update();
     }
 }
