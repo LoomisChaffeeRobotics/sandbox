@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
@@ -17,6 +18,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceRunner;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagPoseRaw;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 import java.util.List;
@@ -70,17 +72,16 @@ public class CameraHeadingTest extends OpMode {
 
         if(!currentDetections.isEmpty()){
             AprilTagDetection aprilTag1 = currentDetections.get(0);
-            Pose3D NewPose3D = new Pose3D(
-                    new Position(
-                            aprilTag1.
-                    ),
-                    new YawPitchRollAngles()
+            AprilTagPoseRaw raw = aprilTag1.rawPose;
+            AprilTagPoseRaw rawTwo = new AprilTagPoseRaw(
+                    raw.x,
+                    raw.y + 5.5,
+                    raw.z,
+                    raw.R
             );
+                
 
 
-
-
-            )
         }
     }
 }
