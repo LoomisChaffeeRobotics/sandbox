@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 
+import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
@@ -70,17 +71,13 @@ public class CameraHeadingTest extends OpMode {
 
         if(!currentDetections.isEmpty()){
             AprilTagDetection aprilTag1 = currentDetections.get(0);
-            AprilTagPoseRaw pose = aprilTag1.rawPose;
-            double roboX = pose.x;
-            double roboY =  pose.y;
-            VectorF aprilVector = aprilTag1.metadata.fieldPosition;
-            double heading = drive.getPoseEstimate().getHeading();
-            float relativeX = (float) (-roboX * Math.sin(heading)+ roboY*Math.cos(heading));
-            float relativeY = (float) (roboY * Math.sin(heading)+ roboX*Math.cos(heading));
-            VectorF relativeVector = new VectorF(relativeX,relativeY,0);
-            VectorF robotVector = aprilVector.subtracted(relativeVector);
-            Pose2d calculatedPose = new Pose2d(robotVector.getData()[0],robotVector.getData()[1],heading);
-            drive.setPoseEstimate(calculatedPose);
+            Pose3D pose = aprilTag1.robotPose;
+
+            telemetry.addData("X: "pose.getPosition().x);
+            telemetry.addData("Y: "pose.getPosition().y);
+            telemetry.addData("Yaw: "pose.getOrientation().getYaw());
+
+            telemetry.update();
         }
         drive.update();
     }
