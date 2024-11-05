@@ -71,11 +71,16 @@ public class CameraHeadingTest extends OpMode {
 
         if(!currentDetections.isEmpty()){
             AprilTagDetection aprilTag1 = currentDetections.get(0);
-            Pose3D pose = aprilTag1.robotPose;
+            Pose3D cameraPos = aprilTag1.robotPose; // hopefully in inches
+            double heading = Math.toRadians(cameraPos.getOrientation().getYaw()) +Math. PI;
+            double x = cameraPos.getPosition().x;
+            double y = cameraPos.getPosition().y;
+            Pose2d poseRobot = new Pose2d(
+                    x - 5.5 * Math.cos(heading), y - 5.5* Math.sin(heading),heading
+            );
+            drive.setPoseEstimate(poseRobot);
 
-            telemetry.addData("X: ",pose.getPosition().x);
-            telemetry.addData("Y: ",pose.getPosition().y);
-            telemetry.addData("Yaw: ",pose.getOrientation().getYaw());
+
 
             telemetry.update();
         }
