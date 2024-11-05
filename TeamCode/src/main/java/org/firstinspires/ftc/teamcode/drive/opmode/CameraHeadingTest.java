@@ -73,9 +73,9 @@ public class CameraHeadingTest extends OpMode {
             AprilTagDetection aprilTag1 = currentDetections.get(0);
             Pose3D pose = aprilTag1.robotPose;
 
-            telemetry.addData("X: "pose.getPosition().x);
-            telemetry.addData("Y: "pose.getPosition().y);
-            telemetry.addData("Yaw: "pose.getOrientation().getYaw());
+            telemetry.addData("X: ",pose.getPosition().x);
+            telemetry.addData("Y: ",pose.getPosition().y);
+            telemetry.addData("Yaw: ",pose.getOrientation().getYaw());
 
             telemetry.update();
         }
