@@ -73,10 +73,7 @@ public class CameraHeadingTest extends OpMode {
             double heading = Math.toRadians(cameraPos.getOrientation().getYaw()) -Math. PI/2;
             telemetry.addData("heading ", Math.toDegrees(heading));
             telemetry.addData("inital heading ", cameraPos.getOrientation().getYaw());
-            telemetry.addData("aprilX ", aprilTag1.metadata.fieldPosition.getData()[0]);
-            telemetry.addData("aprilY ", aprilTag1.metadata.fieldPosition.getData()[1]);
-            telemetry.addData("aprilYa ", aprilTag1.metadata.fieldOrientation.applyToVector());
-            double x = cameraPos.getPosition().x;
+            double x = cameraPos.getPosition().x;x
             double y = cameraPos.getPosition().y;
             Pose2d poseRobot = new Pose2d(
                     x + 5.5 * Math.cos(heading), y + 5.5* Math.sin(heading),heading
