@@ -82,9 +82,9 @@ public class CameraHeadingTest extends OpMode {
         if (!currentDetections.isEmpty()) {
             AprilTagDetection aprilTag1 = currentDetections.get(0);
             Pose3D cameraPos = aprilTag1.robotPose; // hopefully in inches
-            double heading = Math.toRadians(cameraPos.getOrientation().getYaw()-90);
+            double heading = Math.toRadians(cameraPos.getOrientation().getYaw()+90);
             telemetry.addData("heading ", Math.toDegrees(heading));
-            telemetry.addData("inital heading ", cameraPos.getOrientation().getYaw());
+            telemetry.addData("initial heading ", cameraPos.getOrientation().getYaw());
             telemetry.addData("aprilX ", aprilTag1.metadata.fieldPosition.getData()[0]);
             telemetry.addData("aprilY ", aprilTag1.metadata.fieldPosition.getData()[1]);
             double x = cameraPos.getPosition().x;
@@ -96,8 +96,9 @@ public class CameraHeadingTest extends OpMode {
 
 
             telemetry.update();
-            drive.update();
+
         }
+        drive.update();
 
     }
 }
