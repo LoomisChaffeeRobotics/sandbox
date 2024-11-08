@@ -12,7 +12,12 @@ import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
@@ -24,10 +29,15 @@ import java.util.List;
 
 @TeleOp
 public class CameraHeadingTest extends OpMode {
+    private Position cameraPosition = new Position(DistanceUnit.INCH,
+            0, 0, 0, 0);
+    private YawPitchRollAngles cameraOrientation = new YawPitchRollAngles(AngleUnit.DEGREES,
+            180, -90, 0, 0);
     IMU imu;
     VisionPortal myVisionPortal;
     AprilTagProcessor myAprilTagProcessor;
     SampleMecanumDrive drive;
+
     @Override
     public void init() {
         drive = new SampleMecanumDrive(hardwareMap);
@@ -37,12 +47,14 @@ public class CameraHeadingTest extends OpMode {
                 .setDrawTagID(true)
                 .setDrawTagOutline(true)
                 .setDrawCubeProjection(true)
-                .setLensIntrinsics(996.968,996.968,929.592,530.676)
+                .setOutputUnits(DistanceUnit.INCH, AngleUnit.DEGREES)
+                .setLensIntrinsics(996.968, 996.968, 929.592, 530.676)
+                .setCameraPose(cameraPosition, cameraOrientation)
                 .build();
         VisionPortal.Builder myVisionPortalBuilder = new VisionPortal.Builder();
         myVisionPortalBuilder.setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"));
         myVisionPortalBuilder.addProcessor(myAprilTagProcessor);
-        myVisionPortalBuilder.setCameraResolution(new Size(1920,1080));
+        myVisionPortalBuilder.setCameraResolution(new Size(1920, 1080));
         myVisionPortalBuilder.setStreamFormat(VisionPortal.StreamFormat.YUY2);
         myVisionPortalBuilder.enableLiveView(true);
         myVisionPortalBuilder.setAutoStopLiveView(true);
@@ -67,26 +79,26 @@ public class CameraHeadingTest extends OpMode {
 
         List<AprilTagDetection> currentDetections = myAprilTagProcessor.getDetections();
 
-        if(!currentDetections.isEmpty()){
+        if (!currentDetections.isEmpty()) {
             AprilTagDetection aprilTag1 = currentDetections.get(0);
             Pose3D cameraPos = aprilTag1.robotPose; // hopefully in inches
-            double heading = Math.toRadians(cameraPos.getOrientation().getYaw()) -Math. PI/2;
+            double heading = Math.toRadians(cameraPos.getOrientation().getYaw());
             telemetry.addData("heading ", Math.toDegrees(heading));
             telemetry.addData("inital heading ", cameraPos.getOrientation().getYaw());
             telemetry.addData("aprilX ", aprilTag1.metadata.fieldPosition.getData()[0]);
             telemetry.addData("aprilY ", aprilTag1.metadata.fieldPosition.getData()[1]);
-            telemetry.addData("aprilYa ", aprilTag1.metadata.fieldOrientation.applyToVector());
             double x = cameraPos.getPosition().x;
             double y = cameraPos.getPosition().y;
             Pose2d poseRobot = new Pose2d(
-                    x + 5.5 * Math.cos(heading), y + 5.5* Math.sin(heading),heading
+                    x, y, heading
             );
             drive.setPoseEstimate(poseRobot);
 
 
-
             telemetry.update();
+            drive.update();
         }
-        drive.update();
+
     }
 }
+
