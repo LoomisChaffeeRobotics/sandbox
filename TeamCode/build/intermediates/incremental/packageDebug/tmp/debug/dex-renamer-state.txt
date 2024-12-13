@@ -1,19 +1,19 @@
-#Fri Nov 08 15:44:46 EST 2024
-base.0=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
-base.1=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeLibDexDebug/10/classes.dex
-base.10=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/3/classes.dex
-base.11=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/5/classes.dex
-base.12=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/9/classes.dex
-base.13=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeExtDexDebug/classes2.dex
-base.14=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeExtDexDebug/classes3.dex
-base.2=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeLibDexDebug/11/classes.dex
-base.3=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeLibDexDebug/8/classes.dex
-base.4=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
-base.5=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/1/classes.dex
-base.6=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/10/classes.dex
-base.7=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/14/classes.dex
-base.8=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/15/classes.dex
-base.9=/Users/cchu/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/2/classes.dex
+#Tue Dec 10 16:26:10 EST 2024
+base.0=/Users/justin/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
+base.1=/Users/justin/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeLibDexDebug/10/classes.dex
+base.10=/Users/justin/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/3/classes.dex
+base.11=/Users/justin/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/5/classes.dex
+base.12=/Users/justin/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/9/classes.dex
+base.13=/Users/justin/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeExtDexDebug/classes2.dex
+base.14=/Users/justin/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeExtDexDebug/classes3.dex
+base.2=/Users/justin/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeLibDexDebug/11/classes.dex
+base.3=/Users/justin/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeLibDexDebug/8/classes.dex
+base.4=/Users/justin/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
+base.5=/Users/justin/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/1/classes.dex
+base.6=/Users/justin/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/10/classes.dex
+base.7=/Users/justin/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/14/classes.dex
+base.8=/Users/justin/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/15/classes.dex
+base.9=/Users/justin/Documents/GitHub/sandbox/TeamCode/build/intermediates/dex/debug/mergeProjectDexDebug/2/classes.dex
 path.0=classes.dex
 path.1=10/classes.dex
 path.10=3/classes.dex
